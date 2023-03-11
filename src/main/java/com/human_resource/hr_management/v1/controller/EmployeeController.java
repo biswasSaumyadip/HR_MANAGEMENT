@@ -43,4 +43,15 @@ public class EmployeeController {
         }
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateEmployee(@RequestBody Employee employee){
+        try{
+            employeeService.updateEmployee(employee);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        }catch (DataAccessException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        }
+    }
+
 }

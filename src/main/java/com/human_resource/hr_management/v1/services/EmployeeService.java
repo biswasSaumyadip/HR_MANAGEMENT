@@ -12,7 +12,7 @@ public interface EmployeeService {
 
     void createEmployee(Employee employee);
 
-    void updateEmployee(Employee employee, String UUID);
+    void updateEmployee(Employee employee);
 
     void deleteEmployee(String UUID);
 

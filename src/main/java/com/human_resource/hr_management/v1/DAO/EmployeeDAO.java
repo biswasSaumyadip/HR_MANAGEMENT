@@ -53,18 +53,27 @@ public class EmployeeDAO implements DAO<Employee> {
 
     public Optional<Employee> getBy(String uuid) {
         String sql = "select * from employees where employee_id=?";
-
-       try {
-           Employee employee = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
-           return Optional.ofNullable(employee);
-       }catch (DataAccessException exception){
-           return Optional.empty();
-       }
+        try {
+            Employee employee = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
+            return Optional.ofNullable(employee);
+        } catch (DataAccessException exception) {
+            return Optional.empty();
+        }
     }
 
-    public void update(Employee employee, String uuid) {
+    public void update(Employee employee) {
+        String sql = "UPDATE employees SET first_name = ?, last_name = ?, email = ?, phone = ?, hire_date = ?, termination_date = ? WHERE employee_id = ?";
+
+        int numRowsUpdated = jdbcTemplate.update(sql, employee.getFirst_name(), employee.getLast_name(), employee.getEmail(), employee.getPhone(), employee.getHire_date(), employee.getTermination_date(), employee.getEmployee_id());
+
+        if (numRowsUpdated == 1) {
+            log.info("Employee with ID " + employee.getEmployee_id() + " was successfully updated.");
+        } else {
+            log.error("Failed to update employee with ID " + employee.getEmployee_id());
+        }
     }
 
     public void delete(String uuid) {
+        jdbcTemplate.update("delete from employees where employee_id=?");
     }
 }

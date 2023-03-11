@@ -40,8 +40,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void updateEmployee(Employee employee, String UUID) {
-        this.employeeDAO.update(employee,UUID);
+    public void updateEmployee(Employee employee) {
+        this.employeeDAO.update(employee);
     }
 
     @Override

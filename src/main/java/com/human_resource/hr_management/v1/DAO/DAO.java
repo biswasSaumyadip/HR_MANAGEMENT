@@ -10,7 +10,7 @@ public interface DAO<T> {
 
     Optional<T> getBy(String uuid);
 
-    void update(T t, String uuid);
+    void update(T t);
 
     void delete(String uuid);
 }
