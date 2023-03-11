@@ -37,11 +37,11 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public void updateRole(Role role) {
-
+        roleDAO.update(role);
     }
 
     @Override
     public void deleteRole(String UUID) {
-
+        roleDAO.delete(UUID);
     }
 }
