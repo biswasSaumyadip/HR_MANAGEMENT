@@ -3,6 +3,7 @@ package com.human_resource.hr_management.v1.DAO;
 import com.human_resource.hr_management.v1.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -48,7 +49,13 @@ public class RoleDAO implements DAO<Role> {
 
     @Override
     public Optional<Role> getBy(String uuid) {
-        return Optional.empty();
+        String sql = "select * from roles where role_id=?";
+        try {
+            Role role = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
+            return Optional.ofNullable(role);
+        }catch (DataAccessException exception){
+            return Optional.empty();
+        }
     }
 
     @Override
