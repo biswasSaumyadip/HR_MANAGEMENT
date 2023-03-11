@@ -1,6 +1,7 @@
 package com.human_resource.hr_management.v1.DAO;
 
 import com.human_resource.hr_management.v1.exceptionHandler.EmployeeCreationException;
+import com.human_resource.hr_management.v1.exceptionHandler.EmployeeNotFoundException;
 import com.human_resource.hr_management.v1.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Component
 public class EmployeeDAO implements DAO<Employee> {
     private static final Logger log = LoggerFactory.getLogger(EmployeeDAO.class);
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     RowMapper<Employee> rowMapper = (rs, rowNum) -> {
         Employee employee = new Employee();
         employee.setEmployee_id(rs.getString("employee_id"));
@@ -39,8 +40,8 @@ public class EmployeeDAO implements DAO<Employee> {
     }
 
     public void create(Employee employee) {
-        String sql = "insert into  employees(employee_id, first_name, last_name, email, phone, hire_date, termination_date) values (? , ?, ?, ?, ? ,? , ?)";
-        int insert = this.jdbcTemplate.update(sql, new Object[]{employee.getEmployee_id(), employee.getFirst_name(), employee.getLast_name(), employee.getEmail(), employee.getPhone(), employee.getHire_date(), employee.getTermination_date()});
+        String sql = "insert into  hr_management_system.employees(employee_id, first_name, last_name, email, phone, hire_date, termination_date) values (? , ?, ?, ?, ? ,? , ?)";
+        int insert = this.jdbcTemplate.update(sql, employee.getEmployee_id(), employee.getFirst_name(), employee.getLast_name(), employee.getEmail(), employee.getPhone(), employee.getHire_date(), employee.getTermination_date());
         String var10000 = employee.getFirst_name();
         String fullName = var10000 + " " + employee.getLast_name();
         if (insert == 1) {
@@ -51,7 +52,16 @@ public class EmployeeDAO implements DAO<Employee> {
     }
 
     public Optional<Employee> getBy(String uuid) {
-        return Optional.empty();
+        String sql = "select * from employees where employee_id=?";
+        Employee employee;
+
+        try {
+            employee = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
+        }catch (EmployeeNotFoundException exception){
+            throw exception;
+        }
+
+        return Optional.ofNullable(employee);
     }
 
     public void update(Employee employee, String uuid) {
