@@ -74,6 +74,14 @@ public class EmployeeDAO implements DAO<Employee> {
     }
 
     public void delete(String uuid) {
-        jdbcTemplate.update("delete from employees where employee_id=?");
+        String sql = "DELETE FROM employees WHERE employee_id = ?";
+
+        int numRowsDeleted = jdbcTemplate.update(sql, uuid);
+
+        if (numRowsDeleted == 1) {
+            log.info("Employee with ID " + uuid + " was successfully deleted.");
+        } else {
+            log.error("Failed to delete employee with ID " + uuid);
+        }
     }
 }
