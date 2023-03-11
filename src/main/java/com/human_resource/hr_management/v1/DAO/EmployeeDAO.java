@@ -1,11 +1,11 @@
 package com.human_resource.hr_management.v1.DAO;
 
 import com.human_resource.hr_management.v1.exceptionHandler.EmployeeCreationException;
-import com.human_resource.hr_management.v1.exceptionHandler.EmployeeNotFoundException;
 import com.human_resource.hr_management.v1.model.Employee;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -53,15 +53,13 @@ public class EmployeeDAO implements DAO<Employee> {
 
     public Optional<Employee> getBy(String uuid) {
         String sql = "select * from employees where employee_id=?";
-        Employee employee;
 
-        try {
-            employee = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
-        }catch (EmployeeNotFoundException exception){
-            throw exception;
-        }
-
-        return Optional.ofNullable(employee);
+       try {
+           Employee employee = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
+           return Optional.ofNullable(employee);
+       }catch (DataAccessException exception){
+           return Optional.empty();
+       }
     }
 
     public void update(Employee employee, String uuid) {

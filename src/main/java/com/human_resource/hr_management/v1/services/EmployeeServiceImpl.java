@@ -1,6 +1,7 @@
 package com.human_resource.hr_management.v1.services;
 
 import com.human_resource.hr_management.v1.DAO.EmployeeDAO;
+import com.human_resource.hr_management.v1.exceptionHandler.EmployeeNotFoundException;
 import com.human_resource.hr_management.v1.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Optional<Employee> getEmployeeById(String UUID) {
-        return this.employeeDAO.getBy(UUID);
+    public Optional<Employee> getEmployeeById(String UUID) throws EmployeeNotFoundException {
+        Optional<Employee> employee = employeeDAO.getBy(UUID);
+        return Optional.ofNullable(employee.orElseThrow(() -> new EmployeeNotFoundException("Employee not found")));
     }
 
     @Override
