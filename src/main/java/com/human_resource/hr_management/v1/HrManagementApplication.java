@@ -1,4 +1,4 @@
-package com.human_resource.hr_management;
+package com.human_resource.hr_management.v1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
