@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -31,6 +32,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public void createEmployee(Employee employee) {
+        if(employee.getEmployee_id() == null){
+            employee.setEmployee_id(UUID.randomUUID().toString());
+        }
+
         this.employeeDAO.create(employee);
     }
 
