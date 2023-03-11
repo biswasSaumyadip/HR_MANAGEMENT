@@ -1,6 +1,5 @@
 package com.human_resource.hr_management.v1.controller;
 
-import com.human_resource.hr_management.v1.exceptionHandler.EmployeeNotFoundException;
 import com.human_resource.hr_management.v1.model.Employee;
 import com.human_resource.hr_management.v1.services.EmployeeServiceImpl;
 import org.slf4j.Logger;
