@@ -1,6 +1,7 @@
 package com.human_resource.hr_management.v1.controller;
 
-import com.human_resource.hr_management.v1.model.EmployeeWithRole;
+import com.human_resource.hr_management.v1.model.EmployeeDetails;
+import com.human_resource.hr_management.v1.model.EmployeeDetailsRequest;
 import com.human_resource.hr_management.v1.model.EmployeesRoles;
 import com.human_resource.hr_management.v1.services.EmployeeRoleServiceImpl;
 import org.springframework.dao.DataAccessException;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employees/details")
 public class EmployeeRoleController {
 
     private final EmployeeRoleServiceImpl employeeRoleService;
@@ -21,7 +22,7 @@ public class EmployeeRoleController {
         this.employeeRoleService = employeeRoleService;
     }
 
-    @PostMapping("/withRoles")
+    @PostMapping("/roles")
     public ResponseEntity<?> createEmployeesRoles(@RequestBody EmployeesRoles employeesRoles){
         try {
             employeeRoleService.createEmployeeRole(employeesRoles);
@@ -31,9 +32,28 @@ public class EmployeeRoleController {
         }
     }
 
-    @GetMapping("/details/{employeeId}")
-    public ResponseEntity<?> getEmployeeDetails(@PathVariable String employeeId){
-        Optional<EmployeeWithRole> employeeDetails = this.employeeRoleService.getEmployeeDetails(employeeId);
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<?> getEmployeeDetails(
+            @PathVariable String employeeId,
+            @RequestParam(name = "include", required = false) String include
+    ){
+        boolean includeRoles = false;
+        boolean includeDepartment = false;
+
+        if(include != null){
+            String[] includeValues = include.split(",");
+            for(String value: includeValues){
+                if(value.equals("roles")){
+                    includeRoles = true;
+                }else if(value.equals("department")){
+                    includeDepartment = true;
+                }
+            }
+        }
+
+        EmployeeDetailsRequest request = new EmployeeDetailsRequest(employeeId, includeRoles, includeDepartment);
+        Optional<EmployeeDetails> employeeDetails = this.employeeRoleService.getEmployeeDetails(request);
+
         return employeeDetails.map(employee -> ResponseEntity.ok().body(employee))
                 .orElse(ResponseEntity.notFound().build());
     }

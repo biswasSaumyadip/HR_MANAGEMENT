@@ -3,10 +3,7 @@ package com.human_resource.hr_management.v1.services;
 import com.human_resource.hr_management.v1.DAO.EmployeeDAO;
 import com.human_resource.hr_management.v1.DAO.EmployeeRoleDAOImpl;
 import com.human_resource.hr_management.v1.DAO.RoleDAO;
-import com.human_resource.hr_management.v1.model.Employee;
-import com.human_resource.hr_management.v1.model.EmployeeWithRole;
-import com.human_resource.hr_management.v1.model.EmployeesRoles;
-import com.human_resource.hr_management.v1.model.Role;
+import com.human_resource.hr_management.v1.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,21 +51,21 @@ public class EmployeeRoleServiceImpl implements EmployeeRoleService {
     }
 
     @Override
-    public Optional<EmployeeWithRole> getEmployeeDetails(String uuid) {
-        EmployeesRoles employeesRoles = this.getEmployeeRolesById(uuid).orElse(null);
-        Employee employee = this.employeeDAO.getBy(uuid).orElse(null);
+    public Optional<EmployeeDetails> getEmployeeDetails(EmployeeDetailsRequest request) {
+        EmployeesRoles employeesRoles = this.getEmployeeRolesById(request.getUuid()).orElse(null);
+        Employee employee = this.employeeDAO.getBy(request.getUuid()).orElse(null);
 
-        EmployeeWithRole employeeWithRole = new EmployeeWithRole();
+        EmployeeDetails employeeDetails = new EmployeeDetails();
 
         if(employee != null) {
-            employeeWithRole.setEmployee(employee);
+            employeeDetails.setEmployee(employee);
 
-            if(employeesRoles != null){
+            if(employeesRoles != null && request.isIncludeRoles()){
                 Role role = this.roleDAO.getBy(employeesRoles.getRole_id()).orElse(null);
-                employeeWithRole.setRole(role);
+                employeeDetails.setRole(role);
             }
         }
 
-        return Optional.ofNullable(employeeWithRole);
+        return Optional.ofNullable(employeeDetails);
     }
 }

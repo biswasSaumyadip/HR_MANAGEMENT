@@ -1,7 +1,7 @@
 package com.human_resource.hr_management.v1.DAO;
 
 import com.human_resource.hr_management.v1.model.EmployeesRoles;
-import com.human_resource.hr_management.v1.model.EmployeeWithRole;
+import com.human_resource.hr_management.v1.model.EmployeeDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -74,12 +74,12 @@ public class EmployeeRoleDAOImpl implements EmployeeRoleDAO{
     }
 
     @Override
-    public List<EmployeeWithRole> getAllEmployeeWithRole() {
+    public List<EmployeeDetails> getAllEmployeeWithRole() {
         return null;
     }
 
     @Override
-    public EmployeeWithRole getEmployeeWithRole(String employee_id) {
+    public EmployeeDetails getEmployeeWithRole(String employee_id) {
         return null;
     }
 }

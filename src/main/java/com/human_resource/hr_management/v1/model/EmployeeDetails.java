@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class EmployeeWithRole extends Employee {
+public class EmployeeDetails extends Employee {
     private Role role;
 
     public void setEmployee(Employee employee) {
