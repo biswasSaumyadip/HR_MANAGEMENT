@@ -31,8 +31,7 @@ public class RoleDAO implements DAO<Role> {
     @Override
     public List<Role> list() {
         String sql = "SELECT * from roles";
-        List<Role> roles = jdbcTemplate.query(sql, rowMapper);
-        return roles;
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
