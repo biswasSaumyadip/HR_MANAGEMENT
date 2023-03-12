@@ -34,5 +34,23 @@ public class RoleController {
         }
     }
 
+    @PutMapping
+    public ResponseEntity<?> updateRole(@RequestBody Role role){
+        try{
+            roleService.updateRole(role);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        }catch (DataAccessException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 
+    @DeleteMapping("/{roleId}")
+    public ResponseEntity<?> deleteRole(@PathVariable String roleId){
+        try{
+            roleService.deleteRole(roleId);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        }catch (DataAccessException exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 }

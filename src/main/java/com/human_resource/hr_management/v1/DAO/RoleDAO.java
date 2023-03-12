@@ -31,8 +31,7 @@ public class RoleDAO implements DAO<Role> {
     @Override
     public List<Role> list() {
         String sql = "SELECT * from roles";
-        List<Role> roles = jdbcTemplate.query(sql, rowMapper);
-        return roles;
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     @Override
@@ -40,9 +39,9 @@ public class RoleDAO implements DAO<Role> {
         String sql = "insert into roles(role_id, role_name) values (?,?)";
         int rowAdded = jdbcTemplate.update(sql, role.getRole_id(), role.getRole_name());
 
-        if(rowAdded == 1){
+        if (rowAdded == 1) {
             log.info(role.getRole_name() + " role created.");
-        }else{
+        } else {
             log.error("Role creation failed!");
         }
     }
@@ -53,18 +52,30 @@ public class RoleDAO implements DAO<Role> {
         try {
             Role role = jdbcTemplate.queryForObject(sql, rowMapper, uuid);
             return Optional.ofNullable(role);
-        }catch (DataAccessException exception){
+        } catch (DataAccessException exception) {
             return Optional.empty();
         }
     }
 
     @Override
     public void update(Role role) {
+        String sql = "update roles set role_name=? where role_id=?";
+        int rowUpdated = jdbcTemplate.update(sql, role.getRole_name());
 
+        if (rowUpdated == 1) {
+            log.info(role.getRole_name() + " role updated!");
+        } else {
+            log.error(role.getRole_name() + " could not be updated.");
+        }
     }
 
     @Override
     public void delete(String uuid) {
-
+        int deletedRow = jdbcTemplate.update("delete from roles where role_id=?");
+        if (deletedRow == 1) {
+            log.info("Role was deleted");
+        }else{
+            log.error("Role was not deleted.");
+        }
     }
 }
