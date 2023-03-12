@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employeesRole")
+@RequestMapping("/employees")
 public class EmployeeRoleController {
 
     private final EmployeeRoleServiceImpl employeeRoleService;
+
 
     public EmployeeRoleController(EmployeeRoleServiceImpl employeeRoleService) {
         this.employeeRoleService = employeeRoleService;
     }
 
-    @PostMapping
+    @PostMapping("/withRoles")
     public ResponseEntity<?> createEmployeesRoles(@RequestBody EmployeesRoles employeesRoles){
         try {
             employeeRoleService.createEmployeeRole(employeesRoles);
