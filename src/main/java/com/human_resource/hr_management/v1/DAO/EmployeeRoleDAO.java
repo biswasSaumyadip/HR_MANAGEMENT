@@ -1,14 +1,14 @@
 package com.human_resource.hr_management.v1.DAO;
 
-import com.human_resource.hr_management.v1.model.Employee_role;
-import com.human_resource.hr_management.v1.model.Employee_with_role;
+import com.human_resource.hr_management.v1.model.EmployeesRoles;
+import com.human_resource.hr_management.v1.model.EmployeeWithRole;
 
 import java.util.List;
 
-public interface EmployeeRoleDAO extends DAO<Employee_role>{
+public interface EmployeeRoleDAO extends DAO<EmployeesRoles>{
 
-    List<Employee_with_role> getAllEmployeeWithRole();
+    List<EmployeeWithRole> getAllEmployeeWithRole();
 
-    Employee_with_role getEmployeeWithRole();
+    EmployeeWithRole getEmployeeWithRole(String employee_id);
 
 }

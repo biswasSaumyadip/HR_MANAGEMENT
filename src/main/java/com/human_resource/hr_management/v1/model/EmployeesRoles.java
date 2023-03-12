@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Employee_role {
+public class EmployeesRoles {
     private String employee_id;
     private String role_id;
 
