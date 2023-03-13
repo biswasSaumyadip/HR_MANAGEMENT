@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees/details")
+@RequestMapping("/employeesRoles")
 public class EmployeeRoleController {
 
     private final EmployeeRoleServiceImpl employeeRoleService;
@@ -22,7 +22,7 @@ public class EmployeeRoleController {
         this.employeeRoleService = employeeRoleService;
     }
 
-    @PostMapping("/roles")
+    @PostMapping
     public ResponseEntity<?> createEmployeesRoles(@RequestBody EmployeesRoles employeesRoles){
         try {
             employeeRoleService.createEmployeeRole(employeesRoles);
@@ -30,31 +30,5 @@ public class EmployeeRoleController {
         }catch (DataAccessException exception){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-    }
-
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<?> getEmployeeDetails(
-            @PathVariable String employeeId,
-            @RequestParam(name = "include", required = false) String include
-    ){
-        boolean includeRoles = false;
-        boolean includeDepartment = false;
-
-        if(include != null){
-            String[] includeValues = include.split(",");
-            for(String value: includeValues){
-                if(value.equals("roles")){
-                    includeRoles = true;
-                }else if(value.equals("department")){
-                    includeDepartment = true;
-                }
-            }
-        }
-
-        EmployeeDetailsRequest request = new EmployeeDetailsRequest(employeeId, includeRoles, includeDepartment);
-        Optional<EmployeeDetails> employeeDetails = this.employeeRoleService.getEmployeeDetails(request);
-
-        return employeeDetails.map(employee -> ResponseEntity.ok().body(employee))
-                .orElse(ResponseEntity.notFound().build());
     }
 }

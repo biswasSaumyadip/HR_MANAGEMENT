@@ -49,23 +49,4 @@ public class EmployeeRoleServiceImpl implements EmployeeRoleService {
         }
         return Optional.ofNullable(employeeRole);
     }
-
-    @Override
-    public Optional<EmployeeDetails> getEmployeeDetails(EmployeeDetailsRequest request) {
-        EmployeesRoles employeesRoles = this.getEmployeeRolesById(request.getUuid()).orElse(null);
-        Employee employee = this.employeeDAO.getBy(request.getUuid()).orElse(null);
-
-        EmployeeDetails employeeDetails = new EmployeeDetails();
-
-        if(employee != null) {
-            employeeDetails.setEmployee(employee);
-
-            if(employeesRoles != null && request.isIncludeRoles()){
-                Role role = this.roleDAO.getBy(employeesRoles.getRole_id()).orElse(null);
-                employeeDetails.setRole(role);
-            }
-        }
-
-        return Optional.ofNullable(employeeDetails);
-    }
 }
