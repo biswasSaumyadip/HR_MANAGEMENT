@@ -10,11 +10,11 @@ import java.util.Optional;
 @Service
 public class EmployeeDetailsServiceImpl implements EmployeeDetailsService{
 
-    private EmployeeDAO employeeDAO;
+    private final EmployeeDAO employeeDAO;
 
-    private RoleDAO roleDAO;
+    private final RoleDAO roleDAO;
 
-    private EmployeeRoleService employeeRoleService;
+    private final EmployeeRoleService employeeRoleService;
 
     public EmployeeDetailsServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeRoleService employeeRoleService) {
         this.employeeDAO = employeeDAO;
@@ -38,6 +38,6 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService{
             }
         }
 
-        return Optional.ofNullable(employeeDetails);
+        return Optional.of(employeeDetails);
     }
 }
