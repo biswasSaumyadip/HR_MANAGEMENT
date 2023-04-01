@@ -1,8 +1,9 @@
-package com.human_resource.hr_management.v1.services;
+package com.human_resource.hr_management.v1.services.impl;
 
 import com.human_resource.hr_management.v1.DAO.EmployeeDAO;
 import com.human_resource.hr_management.v1.exceptionHandler.EmployeeNotFoundException;
 import com.human_resource.hr_management.v1.model.Employee;
+import com.human_resource.hr_management.v1.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeDAO employeeDAO;
 
     @Autowired
