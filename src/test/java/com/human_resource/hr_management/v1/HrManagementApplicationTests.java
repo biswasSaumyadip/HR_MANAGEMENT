@@ -1,4 +1,4 @@
-package com.human_resource.hr_management;
+package com.human_resource.hr_management.v1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

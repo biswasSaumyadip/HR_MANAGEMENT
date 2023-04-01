@@ -1,7 +1,8 @@
-package com.human_resource.hr_management.v1.services;
+package com.human_resource.hr_management.v1.services.impl;
 
 import com.human_resource.hr_management.v1.DAO.RoleDAO;
 import com.human_resource.hr_management.v1.model.Role;
+import com.human_resource.hr_management.v1.services.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     private final RoleDAO roleDAO;
 

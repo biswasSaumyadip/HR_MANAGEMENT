@@ -1,7 +1,7 @@
 package com.human_resource.hr_management.v1.controller;
 
 import com.human_resource.hr_management.v1.model.Employee;
-import com.human_resource.hr_management.v1.services.EmployeeServiceImpl;
+import com.human_resource.hr_management.v1.services.impl.EmployeeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;

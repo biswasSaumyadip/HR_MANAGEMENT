@@ -1,9 +1,10 @@
-package com.human_resource.hr_management.v1.services;
+package com.human_resource.hr_management.v1.services.impl;
 
 import com.human_resource.hr_management.v1.DAO.EmployeeDAO;
 import com.human_resource.hr_management.v1.DAO.EmployeeRoleDAOImpl;
 import com.human_resource.hr_management.v1.DAO.RoleDAO;
 import com.human_resource.hr_management.v1.model.*;
+import com.human_resource.hr_management.v1.services.EmployeeRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

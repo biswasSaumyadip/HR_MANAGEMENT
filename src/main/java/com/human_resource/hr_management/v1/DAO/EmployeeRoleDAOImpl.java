@@ -19,7 +19,7 @@ public class EmployeeRoleDAOImpl implements EmployeeRoleDAO{
     private final Logger log = LoggerFactory.getLogger(EmployeeRoleDAOImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
-    RowMapper<EmployeesRoles> employeeRoleRowMapper = (rs, rowNum)->{
+        RowMapper<EmployeesRoles> employeeRoleRowMapper = (rs, rowNum)->{
         EmployeesRoles employeesRoles = new EmployeesRoles();
         employeesRoles.setEmployee_id(rs.getString("employee_id"));
         employeesRoles.setRole_id(rs.getString("role_id"));

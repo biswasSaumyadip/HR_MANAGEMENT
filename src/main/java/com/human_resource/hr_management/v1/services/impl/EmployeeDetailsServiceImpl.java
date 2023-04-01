@@ -1,14 +1,16 @@
-package com.human_resource.hr_management.v1.services;
+package com.human_resource.hr_management.v1.services.impl;
 
 import com.human_resource.hr_management.v1.DAO.EmployeeDAO;
 import com.human_resource.hr_management.v1.DAO.RoleDAO;
 import com.human_resource.hr_management.v1.model.*;
+import com.human_resource.hr_management.v1.services.EmployeeDetailsService;
+import com.human_resource.hr_management.v1.services.EmployeeRoleService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class EmployeeDetailsServiceImpl implements EmployeeDetailsService{
+public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 
     private final EmployeeDAO employeeDAO;
 

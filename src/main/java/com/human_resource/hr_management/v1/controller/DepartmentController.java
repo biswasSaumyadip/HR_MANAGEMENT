@@ -2,7 +2,7 @@ package com.human_resource.hr_management.v1.controller;
 
 
 import com.human_resource.hr_management.v1.model.Department;
-import com.human_resource.hr_management.v1.services.DepartmentServiceImpl;
+import com.human_resource.hr_management.v1.services.impl.DepartmentServiceImpl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

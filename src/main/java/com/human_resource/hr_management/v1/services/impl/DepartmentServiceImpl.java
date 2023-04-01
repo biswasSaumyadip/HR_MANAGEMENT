@@ -1,14 +1,15 @@
-package com.human_resource.hr_management.v1.services;
+package com.human_resource.hr_management.v1.services.impl;
 
 import com.human_resource.hr_management.v1.DAO.DepartmentDAO;
 import com.human_resource.hr_management.v1.model.Department;
+import com.human_resource.hr_management.v1.services.DepartmentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentDAO departmentDAO;
 
